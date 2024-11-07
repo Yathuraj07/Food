@@ -1,0 +1,204 @@
+﻿ @inherits LayoutComponentBase
+ @using System.Threading
+
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<head>
+    <style>
+        /* Custom class for bold icon effect */
+        .bold-icon svg {
+            font-size: 1.5rem;
+            font-weight: bold;
+            filter: drop-shadow(0px 1px 0px black); /* Increase size slightly to give a bold effect */
+        }
+
+        .bold-text {
+            font-weight: bold;
+            font-family: "Didact Gothic", sans-serif;
+            color: black; /* Change text color to black for visibility */
+        }
+
+        .solid-background {
+            background-color: white;
+        }
+
+        .centered-search {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100%; /* Full height */
+            width: 100%; /* Full width */
+        }
+
+
+        
+        .custom-autocomplete {
+            min-width: 300px; /* Adjust as necessary */
+            height: 56px; /* Set a desired height */
+        }
+    
+
+    </style>
+</head>
+
+<MudLayout Style="background-color: white;">
+    <MudAppBar Elevation="1" Color="Color.Default" Class="solid-background">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Default" Edge="Edge.Start" OnClick="@ToggleDrawer" Class="bold-icon" />
+        <MudText Typo="Typo.h6" Class="bold-text" Style="white-space: nowrap;">Food Store</MudText>
+
+        <MudSpacer />
+
+        <div class="centered-search">
+            <MudGrid>
+                <MudItem xs="12" sm="10" md="8">
+                    <MudAutocomplete T="string" Label="Search Foods" @bind-Value="value2" SearchFunc="@Search2"
+                                     ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                     CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                     AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary"
+                                     Class="custom-autocomplete"
+                                     Style="font-size: 1.5rem; height: 3rem; width: 100%;" />
+                </MudItem>
+            </MudGrid>
+        </div>
+
+        <MudSpacer />
+
+        <div style="display: flex; align-items: center;">
+            <MudButton Variant="Variant.Outlined" Class="bold-text" Style="margin-right: 8px;">Login</MudButton>
+            <MudButton Variant="Variant.Outlined" Class="bold-text">Signup</MudButton>
+        </div>
+
+
+        
+
+        <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Class="bold-text" />
+    </MudAppBar>
+
+
+
+    <MudDrawer @bind-Open="@_open" Elevation="1" Style="background-color: white;">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6" FontWeight="FontWeight.Bold">My App</MudText>
+        </MudDrawerHeader>
+        <MudNavMenu>
+            <MudNavLink Match="NavLinkMatch.All" Style="font-weight: bold;">Store</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Style="font-weight: bold;">Library</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Style="font-weight: bold;">Community</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+
+    <MudMainContent Style="background-color: white;">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+
+
+@*  <MudLayout Class="solid-background">
+    <MudAppBar Elevation="1" Color="Color.Default" Class="solid-background">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" Class="bold-icon" />
+        <MudText Typo="Typo.h6" Class="bold-text">Food Store</MudText>
+
+        <MudGrid>
+            <MudItem xs="12" sm="6" md="4">
+                <MudAutocomplete T="string" Label="US States" @bind-Value="value2" SearchFunc="@Search2"
+                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+            </MudItem>
+        </MudGrid>
+
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" />
+        <MudButton Variant="Variant.Outlined" Color="Color.Inherit">Log in</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary">Sign up</MudButton>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href="https://github.com/MudBlazor/MudBlazor" Target="_blank" />
+    </MudAppBar>
+
+    <MudDrawer @bind-Open="@_open" Elevation="1" Class="solid-background">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6" FontWeight="FontWeight.Bold">My App</MudText>
+        </MudDrawerHeader>
+        <MudNavMenu>
+            <MudNavLink Match="NavLinkMatch.All" Class="bold-link">Store</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Class="bold-link">Library</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Class="bold-link">Community</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+
+    <MudMainContent Class="solid-background">
+        @Body
+    </MudMainContent>
+</MudLayout> *@
+
+
+
+@code {
+
+
+    private bool resetValueOnEmptyText;
+    private bool coerceText;
+    private bool coerceValue;
+    private string value1, value2;
+    private string[] states =
+    {
+        "Alabama", "Alaska", "American Samoa", "Arizona",
+        "Arkansas", "California", "Colorado", "Connecticut",
+        "Delaware", "District of Columbia", "Federated States of Micronesia",
+        "Florida", "Georgia", "Guam", "Hawaii", "Idaho",
+        "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+        "Louisiana", "Maine", "Marshall Islands", "Maryland",
+        "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+        "Missouri", "Montana", "Nebraska", "Nevada",
+        "New Hampshire", "New Jersey", "New Mexico", "New York",
+        "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio",
+        "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico",
+        "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+        "Texas", "Utah", "Vermont", "Virgin Island", "Virginia",
+        "Washington", "West Virginia", "Wisconsin", "Wyoming",
+    };
+
+    private async Task<IEnumerable<string>> Search1(string value, CancellationToken token)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5, token);
+
+        // if text is null or empty, show complete list
+        if (string.IsNullOrEmpty(value))
+            return states;
+        return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private async Task<IEnumerable<string>> Search2(string value, CancellationToken token)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5, token);
+
+        // if text is null or empty, don't return values (drop-down will not open)
+        if (string.IsNullOrEmpty(value))
+            return new string[0];
+        return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+    private bool _open = false;
+    private string searchText = string.Empty;
+
+    private void ToggleDrawer()
+    {
+        _open = !_open;
+    }
+
+    private void SearchFood()
+    {
+        // Logic to search foods based on searchText
+        Console.WriteLine($"Searching for food: {searchText}");
+    }
+}

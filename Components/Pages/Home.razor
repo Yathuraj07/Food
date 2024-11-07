@@ -1,0 +1,665 @@
+﻿ @page "/"
+@rendermode InteractiveServer
+ @using MudBlazor
+ @using System.Linq
+  @using System.Threading
+
+<PageTitle>Home</PageTitle>
+
+<head>
+    <style>
+
+        .bold-text {
+            font-weight: bold;
+            font-family: "Didact Gothic", sans-serif;
+            color: black; /* Change text color to black for visibility */
+        }
+        .custom-text {
+            font-weight: bold;
+            font-size: 24px;
+            font-family: "Didact Gothic", sans-serif;
+            color: black;
+
+        }
+
+
+        .custom-grid .custom-item {
+            margin: 5px; /* Adjust as needed for smaller spacing */
+        }
+
+
+        .small-spacing {
+            margin: 5px; /* Adjust this value as needed */
+            padding: 0;
+        }
+
+    </style>
+</head>
+<br />
+
+<MudGrid Justify="Justify.Center">
+    <MudItem xs="12">
+        <MudTabs Rounded="true" PrevIcon="@Icons.Material.Filled.SkipPrevious" NextIcon="@Icons.Material.Filled.SkipNext">
+            <MudTabPanel class="bold-text" Color="Color.Secondary" Icon="fa fa-store" Text="Grocery" Link="https://example.com/grocery" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-cocktail" Text="Breakfast" Link="https://example.com/breakfast" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-pizza-slice" Text="Pizza" Link="https://example.com/pizza" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-utensils" Text="Indian" Link="https://example.com/indian" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-martini-glass" Text="Soup" Link="https://example.com/soup" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-burger" Text="Sandwich" Link="https://example.com/sandwich" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-apple-alt" Text="Healthy" Link="https://example.com/healthy" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-drumstick-bite" Text="Korean" Link="https://example.com/korean" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-martini-glass" Text="Asian" Link="https://example.com/asian" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-coffee" Text="Coffee" Link="https://example.com/coffee" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-hamburger" Text="American" Link="https://example.com/american" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-pizza-slice" Text="Halal" Link="https://example.com/halal" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-fish" Text="Seafood" Link="https://example.com/seafood" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-blender" Text="Smoothies" Link="https://example.com/smoothies" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-drumstick-bite" Text="BBQ" Link="https://example.com/bbq" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-pizza-slice" Text="Italian" Link="https://example.com/italian" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-sushi" Text="Japanese" Link="https://example.com/japanese" Style="color: #000000;" />
+            <MudTabPanel class="bold-text" Icon="fa fa-ice-cream" Text="Icecream" Link="https://example.com/icecream" Style="color: #000000;" />
+        </MudTabs>
+    </MudItem>
+</MudGrid>
+
+<br />
+
+<div class="d-flex justify-left align-left flex-row">
+    <MudSelect @bind-Value="selectedType" Label="Restaurant Type" Class="m-2" Style="width: 150px;">
+        <MudSelectItem Value="@("Vegetarian")">Vegetarian</MudSelectItem>
+        <MudSelectItem Value="@("NonVegetarian")">NonVegetarian</MudSelectItem>
+    </MudSelect>
+
+    <MudSelect @bind-Value="selectedDistance" Label="Distance" Class="m-2" Style="width: 150px;">
+        <MudSelectItem Value="@("Under5Km")">Under5Km</MudSelectItem>
+        <MudSelectItem Value="@("Over5Km")">Over5Km</MudSelectItem>
+    </MudSelect>
+
+    <MudSelect @bind-Value="selectedPromotion" Label="Promotions" Class="m-2" Style="width: 150px;">
+        <MudSelectItem Value="@("WithPromotion")">WithPromotion</MudSelectItem>
+        <MudSelectItem Value="@("NoPromotion")">NoPromotion</MudSelectItem>
+    </MudSelect>
+</div>
+
+
+<div class="d-flex justify-center align-center flex-row flex-wrap">
+    @foreach (var restaurant in filteredRestaurants)
+    {
+        <div class="text-center ma-2">
+            <MudLink Href="@restaurant.PageLink" Class="d-block">
+                <MudImage Src="@restaurant.ImageSrc" Width="332" Height="250" Alt="Restaurant Image" Elevation="25" Class="rounded-lg" />
+                <MudText>@restaurant.Name</MudText>
+            </MudLink>
+        </div>
+    }
+</div>
+
+
+<MudCarousel Class="mud-width-full" Style="height: 200px;" ShowArrows="@arrows" ShowBullets="false" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+    @for (int i = 0; i < 2; i++) // Two sets of carousel items
+    {
+        if (i == 0)
+        {
+            <MudCarouselItem Transition="transition">
+                <div class="d-flex" style="height:100%">
+                    <MudCard Style="flex: 1; margin: 10px;">
+                        <MudCardMedia Image="images/offer1.jpg" Title="Offer 1" />
+                        <MudCardActions>
+                            <MudButton Class="bold-text" Color="Color.Dark" Variant="Variant.Filled">View Offer</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+
+                    <MudCard Style="flex: 1; margin: 10px;">
+                        <MudCardMedia Image="images/offer2.jpg" Title="Offer 2" />
+                        <MudCardActions>
+                            <MudButton Class="bold-text" Color="Color.Dark" Variant="Variant.Filled">View Offer</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+
+                    <MudCard Style="flex: 1; margin: 10px;">
+                        <MudCardMedia Image="images/offert.jpeg" Title="Offer 3" />
+                        <MudCardActions>
+                            <MudButton Class="bold-text" Color="Color.Dark" Variant="Variant.Filled">View Offer</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </div>
+            </MudCarouselItem>
+        }
+        else if (i == 1)
+        {
+            <MudCarouselItem Transition="transition">
+                <div class="d-flex" style="height:100%">
+                    <MudCard Style="flex: 1; margin: 10px;">
+                        <MudCardMedia Image="images/offer4.jpg" Title="Offer 4" />
+                        <MudCardActions>
+                            <MudButton Class="bold-text" Color="Color.Dark" Variant="Variant.Filled">View Offer</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+
+                    <MudCard Style="flex: 1; margin: 10px;">
+                        <MudCardMedia Image="images/offer5.jpg" Title="Offer 5" />
+                        <MudCardActions>
+                            <MudButton Class="bold-text" Color="Color.Dark" Variant="Variant.Filled">View Offer</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+
+                    <MudCard Style="flex: 1; margin: 10px;">
+                        <MudCardMedia Image="images/offers.jpeg" Title="Offers" />
+                        <MudCardActions>
+                            <MudButton Class="bold-text" Color="Color.Dark" Variant="Variant.Filled">View Offer</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </div>
+            </MudCarouselItem>
+        }
+    }
+</MudCarousel>
+
+
+
+
+
+
+ 
+
+<MudGrid>
+
+    <!-- Empty columns on the left for spacing -->
+    <MudItem xs="0" sm="2" md="1" lg="1"></MudItem>
+
+    <!-- Text content, taking up remaining space -->
+    <MudItem xs="12" sm="8" md="6" lg="4">
+        <MudNavLink Href="/your-target-page"   Class="mud-typography custom-text">
+            Top 10 hottest this week
+        </MudNavLink>
+    </MudItem>
+</MudGrid>
+
+<MudGrid Justify="Justify.Center">
+    <!-- Left space, adjust column count as needed -->
+    <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
+
+    <!-- Carousel container -->
+    <MudItem xs="12" sm="10" md="8" lg="8">
+        <MudCarousel Class="mud-width-full" Style="height: 200px;" AutoCycle="false" TData="object" ShowBullets="false">
+            <BulletTemplate Context="selected">
+                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                    </span>
+                </div>
+            </BulletTemplate>
+
+            <PreviousButtonTemplate>
+                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Inherit" />
+                    </span>
+                </div>
+            </PreviousButtonTemplate>
+
+            <NextButtonTemplate>
+                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Inherit" />
+                    </span>
+                </div>
+            </NextButtonTemplate>
+
+            <ChildContent>
+                <MudCarouselItem>
+                    <MudGrid>
+                        <!-- First Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer;">
+                                    <MudCardMedia Image="images/grand.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">Grand</MudText>
+                                                <MudText Display="Display.Block">15-30 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <MudAvatar Style="height:30px; width:30px; font-size:1rem;">4.4</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
+
+
+
+                        </MudItem>
+
+                        <!-- Second Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/Kfc.png" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>KFC</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Third Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/Pizza.png" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Pizza</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Fourth Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/street.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Street</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </MudCarouselItem>
+            </ChildContent>
+        </MudCarousel>
+    </MudItem>
+
+    <!-- Right space, adjust column count as needed -->
+    <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
+</MudGrid>
+ 
+
+<MudGrid>
+
+    <!-- Empty columns on the left for spacing -->
+    <MudItem xs="0" sm="2" md="1" lg="1"></MudItem>
+
+    <!-- Text content, taking up remaining space -->
+    <MudItem xs="12" sm="8" md="6" lg="4">
+        <MudNavLink Href="/your-target-page" Class="mud-typography custom-text">
+            Popular near you
+        </MudNavLink>
+    </MudItem>
+</MudGrid>
+
+ 
+
+<MudGrid Justify="Justify.Center">
+    <!-- Left space, adjust column count as needed -->
+    <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
+
+    <!-- Carousel container -->
+    <MudItem xs="12" sm="10" md="8" lg="8">
+        <MudCarousel Class="mud-width-full" Style="height: 200px;" AutoCycle="false" TData="object" ShowBullets="false">
+            <BulletTemplate Context="selected">
+                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                    </span>
+                </div>
+            </BulletTemplate>
+
+            <PreviousButtonTemplate>
+                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Inherit" />
+                    </span>
+                </div>
+            </PreviousButtonTemplate>
+
+            <NextButtonTemplate>
+                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Inherit" />
+                    </span>
+                </div>
+            </NextButtonTemplate>
+
+            <ChildContent>
+                <MudCarouselItem>
+                    <MudGrid>
+                        <!-- First Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/fruits.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Grand</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Second Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/fire.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>KFC</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Third Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/cafe.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Pizza</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Fourth Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/sweden.png" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Street</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </MudCarouselItem>
+
+                  <MudCarouselItem>
+                    <MudGrid>
+                        <!-- First Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/fruits.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Grand</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Second Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/fire.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>KFC</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Third Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/cafe.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Pizza</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Fourth Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/sweden.png" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Street</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </MudCarouselItem>
+            </ChildContent>
+        </MudCarousel>
+    </MudItem>
+
+    <!-- Right space, adjust column count as needed -->
+    <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
+</MudGrid>
+
+
+ 
+ 
+
+
+
+<br />
+
+<div class="d-flex justify-center align-center flex-row flex-wrap">
+    <div class="text-center ma-2">
+        <MudLink Href="/page1">
+            <MudImage Src="images/divemore.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/page1">
+            <MudText> Divemore</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page2">
+            <MudImage Src="images/lavies.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/page2">
+            <MudText>Lavies Kitchen Kandy</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page3">
+            <MudImage Src="images/Burger.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/page3">
+            <MudText>Burger</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page4">
+            <MudImage Src="images/Ar.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/page4">
+            <MudText> Arafath Hotel</MudText>
+        </MudLink>
+    </div>
+</div>
+
+<br />
+
+
+<div class="d-flex justify-center align-center flex-row flex-wrap mt-4">
+    <div class="text-center ma-2">
+        <MudLink Href="/new-page1">
+            <MudImage Src="images/fruits.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/new-page1">
+            <MudText>lacish fruit Kandy</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/new-page2">
+            <MudImage Src="images/fire.jpg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/new-page2">
+            <MudText>Fire Plate Resturant</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/new-page3">
+            <MudImage Src="images/cafe.jpg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/new-page3">
+            <MudText>Grand Cafe</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/new-page4">
+            <MudImage Src="images/sweden.png" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/new-page4">
+            <MudText>New Label 4</MudText>
+        </MudLink>
+    </div>
+</div>
+
+
+<br />
+<div class="d-flex justify-center align-center flex-row flex-wrap">
+    <div class="text-center ma-2">
+        <MudLink Href="/page1" Class="d-block">
+            <MudImage Src="images/grand.jpg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+            <MudText>Grand Cafe</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page2" Class="d-block">
+            <MudImage Src="images/Kfc.png" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+            <MudText>KFC</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page3" Class="d-block">
+            <MudImage Src="images/Pizza.png" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+            <MudText> Pizza Hut </MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page4" Class="d-block">
+            <MudImage Src="images/street.jpg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+            <MudText>  Street Kitchen</MudText>
+        </MudLink>
+    </div>
+</div>
+
+<br />
+
+<div class="d-flex justify-center align-center flex-row flex-wrap">
+    <div class="text-center ma-2">
+        <MudLink Href="/page1">
+            <MudImage Src="images/divemore.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/page1">
+            <MudText> Divemore</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page2">
+            <MudImage Src="images/lavies.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/page2">
+            <MudText>Lavies Kitchen Kandy</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page3">
+            <MudImage Src="images/Burger.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/page3">
+            <MudText>Burger</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/page4">
+            <MudImage Src="images/Ar.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/page4">
+            <MudText> Arafath Hotel</MudText>
+        </MudLink>
+    </div>
+</div>
+
+<br />
+
+<div class="d-flex justify-center align-center flex-row flex-wrap mt-4">
+    <div class="text-center ma-2">
+        <MudLink Href="/new-page1">
+            <MudImage Src="images/fruits.jpeg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/new-page1">
+            <MudText>lacish fruit Kandy</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/new-page2">
+            <MudImage Src="images/fire.jpg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/new-page2">
+            <MudText>Fire Plate Resturant</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/new-page3">
+            <MudImage Src="images/cafe.jpg" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/new-page3">
+            <MudText>Grand Cafe</MudText>
+        </MudLink>
+    </div>
+    <div class="text-center ma-2">
+        <MudLink Href="/new-page4">
+            <MudImage Src="images/sweden.png" Width="332" Height="250" Alt="Swedish Farm House" Elevation="25" Class="rounded-lg" />
+        </MudLink>
+        <MudLink Href="/new-page4">
+            <MudText>New Label 4</MudText>
+        </MudLink>
+    </div>
+</div>
+
+<br />
+
+<br />
+
+<br />
+
+
+@code {
+
+     
+        private bool arrows = true;  // Keep arrows enabled
+        private bool bullets = false;  // Disable bullets
+        private bool enableSwipeGesture = true;
+        private bool autocycle = true;
+        private Transition transition = Transition.Slide;
+     
+
+
+    private string selectedType = "Vegetarian"; // Default filter value
+    private string selectedDistance = "Under5Km"; // Default filter value
+    private string selectedPromotion = "WithPromotion"; // Default filter value
+
+    private List<Restaurant> restaurants = new List<Restaurant>
+    {
+        new Restaurant { Name = "Grand Cafe", Type = "Vegetarian", Distance = "Over5Km", HasPromotion = true, ImageSrc = "images/grand.jpg", PageLink = "/page1" },
+        new Restaurant { Name = "KFC", Type = "Vegetarian", Distance = "Over5Km", HasPromotion = false, ImageSrc = "images/Kfc.png", PageLink = "/page2" },
+        new Restaurant { Name = "Pizza Hut", Type = "Vegetarian", Distance = "Over5Km", HasPromotion = true, ImageSrc = "images/Pizza.png", PageLink = "/page3" },
+        new Restaurant { Name = "Street Kitchen", Type = "NonVegetarian", Distance = "Under5Km", HasPromotion = false, ImageSrc = "images/street.jpg", PageLink = "/page4" }
+    };
+
+    private List<Restaurant> filteredRestaurants => restaurants
+        .Where(r =>
+            (r.Type == selectedType || selectedType == "All") &&
+            (r.Distance == selectedDistance || selectedDistance == "All") &&
+            (r.HasPromotion == (selectedPromotion == "WithPromotion")))
+        .ToList();
+
+    public class Restaurant
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Distance { get; set; }
+        public bool HasPromotion { get; set; }
+        public string ImageSrc { get; set; }
+        public string PageLink { get; set; }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
