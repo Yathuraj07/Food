@@ -22,7 +22,7 @@
             font-size: 24px;
             font-family: "Didact Gothic", sans-serif;
             color: black;
-            text-shadow: 0px 0 black, -1px 0 black, 0 1px black, 0 -1px black;
+            text-shadow: 0px 0 black, -1px 0 black,  0 -1px black;
         }
 
 
@@ -67,15 +67,39 @@
                 color: white;
             }
 
+        /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+        /* Promo Card CSS */
+        .card {
+            border: none;
+            border-radius: 2em;
+            margin-left: 3em;
+            margin-right: 3em;
+        }
+
+            .card .promoBox {
+                border-radius: 2em;
+                border: 0 solid green;
+                padding: 2em;
+                width: 30rem;
+                background: rgb(236,234,224);
+                background: linear-gradient(90deg, rgba(236,234,224,1) 0%, rgba(255,224,130,1) 53%, rgba(255,191,80,1) 100%);
+                margin-bottom: 2em;
+                margin-top: 2em;
+            }
+
+        .promoBox img {
+            width: 30%;
+        }
+
+        /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
 
     </style>
 </head>
 <br />
 <br />
-
-<MudNavLink Href="/your-target-page">
-    <MudIcon Icon="@Icons.Material.Filled.Favorite" Title="Favorite" Style="background-color: white; padding: 4px; border-radius: 50%;" />
-</MudNavLink>
+ 
 
 
 
@@ -138,66 +162,82 @@
 </div>
 
 
-<MudCarousel Class="mud-width-full" Style="height: 200px;" ShowArrows="@arrows" ShowBullets="false" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
-    @for (int i = 0; i < 2; i++) // Two sets of carousel items
-    {
-        if (i == 0)
-        {
-            <MudCarouselItem Transition="transition">
-                <div class="d-flex" style="height:100%">
-                    <MudCard Style="flex: 1; margin: 10px;">
-                        <MudCardMedia Image="images/offer1.jpg" Title="Offer 1" />
-                        <MudCardActions>
-                            <MudButton Class="bold-text" Style="background-color: black; color: white;" Variant="Variant.Filled">View Offer</MudButton>
-                        </MudCardActions>
-                    </MudCard>
+@* Promo Card Area *@
+<div id="carouselExampleControls" class="carousel carousel-dark slide " data-bs-ride="carousel">
 
+    @* Promo Card Control Buttons *@
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
 
-                    <MudCard Style="flex: 1; margin: 10px;">
-                        <MudCardMedia Image="images/offer2.jpg" Title="Offer 2" />
-                        <MudCardActions>
-                            <MudButton Class="bold-text" Style="background-color: black; color: white;" Variant="Variant.Filled">View Offer</MudButton>
-                        </MudCardActions>
-                    </MudCard>
-
-                    <MudCard Style="flex: 1; margin: 10px;">
-                        <MudCardMedia Image="images/offert.jpeg" Title="Offer 3" />
-                        <MudCardActions>
-                            <MudButton Class="bold-text" Style="background-color: black; color: white;" Variant="Variant.Filled">View Offer</MudButton>
-                        </MudCardActions>
-                    </MudCard>
+    @* Promo Cards*@
+    <div class="carousel-inner center-div">
+        <div class="carousel-item active">
+            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1">
+                <div class="col d-flex justify-content-center">
+                    <div class="card border-0">
+                        <div class="promoBox">
+                            <ul class="d-flex justify-content-between align-items-center">
+                                <li>
+                                    <h5 class="card-title fw-bold border-0">Special Promo</h5>
+                                    <p class="card-text border-0">Promo More info....</p>
+                                    <button type="button" class="btn btn-dark">View</button>
+                                </li>
+                                <li class="d-flex justify-content-end">
+                                    <img src="https://png.pngtree.com/png-vector/20240902/ourmid/pngtree-illustration-vector-realistic-style-burger-clip-art-images-with-ai-generated-png-image_13717291.png" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </MudCarouselItem>
-        }
-        else if (i == 1)
-        {
-            <MudCarouselItem Transition="transition">
-                <div class="d-flex" style="height:100%">
-                    <MudCard Style="flex: 1; margin: 10px;">
-                        <MudCardMedia Image="images/offer7.jpg" Title="Offer 4" />
-                        <MudCardActions>
-                            <MudButton Class="bold-text" Style="background-color: black; color: white;" Variant="Variant.Filled">View Offer</MudButton>
-                        </MudCardActions>
-                    </MudCard>
-
-                    <MudCard Style="flex: 1; margin: 10px;">
-                        <MudCardMedia Image="images/offert.jpeg" Title="Offer 5" />
-                        <MudCardActions>
-                            <MudButton Class="bold-text" Style="background-color: black; color: white;" Variant="Variant.Filled">View Offer</MudButton>
-                        </MudCardActions>
-                    </MudCard>
-
-                    <MudCard Style="flex: 1; margin: 10px;">
-                        <MudCardMedia Image="images/offer9.jpg" Title="Offers" />
-                        <MudCardActions>
-                            <MudButton Class="bold-text" Style="background-color: black; color: white;" Variant="Variant.Filled">View Offer</MudButton>
-                        </MudCardActions>
-                    </MudCard>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1">
+                <div class="col d-flex justify-content-center">
+                    <div class="card border-0">
+                        <div class="promoBox">
+                            <ul class="d-flex justify-content-between align-items-center">
+                                <li>
+                                    <h5 class="card-title fw-bold border-0">Special Promo</h5>
+                                    <p class="card-text border-0">Promo More info....</p>
+                                    <button type="button" class="btn btn-dark">View</button>
+                                </li>
+                                <li class="d-flex justify-content-end">
+                                    <img src="https://png.pngtree.com/png-clipart/20231018/original/pngtree-pizza-clipart-png-image_13353310.png" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </MudCarouselItem>
-        }
-    }
-</MudCarousel>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1">
+                <div class="col d-flex justify-content-center">
+                    <div class="card border-0">
+                        <div class="promoBox">
+                            <ul class="d-flex justify-content-between align-items-center">
+                                <li>
+                                    <h5 class="card-title fw-bold border-0">Special Promo</h5>
+                                    <p class="card-text border-0">Promo More info....</p>
+                                    <button type="button" class="btn btn-dark">View</button>
+                                </li>
+                                <li class="d-flex justify-content-end">
+                                    <img src="https://i.pinimg.com/originals/28/c4/fb/28c4fb705db11284a50613776956d98c.png" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
  
 <br />
 <!-- Main Layout with Grid -->
@@ -234,8 +274,7 @@
                    </MudItem>
 </MudGrid>
 
-
-
+@* 4 cards in single slide *@
 <MudGrid Justify="Justify.Center">
     <!-- Left space, adjust column count as needed -->
     <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
@@ -250,17 +289,24 @@
                     </span>
                 </div>
             </BulletTemplate>
-
-            
-
             <ChildContent>
                 <MudCarouselItem>
                     <MudGrid>
                         <!-- First Card Item with rectangular image -->
                         <MudItem xs="3">
                             <MudLink Href="your-link-here" Style="text-decoration: none;">
-                                <MudCard Style="cursor: pointer;">
+                                <MudCard Style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden;">
+                                    <!-- Image container with cover styling and matching rounded corners -->
                                     <MudCardMedia Image="images/grand.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+
+                                    <!-- Favorite Icon positioned inside the image on the right side, reduced size, with transparent background -->
+                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Title="Favorite"
+                                                   Style="position: absolute; top: 8px; right: 8px; z-index: 10;
+                                  color: white; background-color: rgba(0, 0, 0, 0.3);
+                                  border-radius: 50%; font-size: 0.75rem; padding: 2px;"
+                                                   OnClick="YourFavoriteIconClickMethod" />
+
+                                    <!-- Content of the card -->
                                     <MudCardContent Style="padding: 8px;">
                                         <MudGrid AlignItems="Center">
                                             <MudItem xs="9">
@@ -268,46 +314,111 @@
                                                 <MudText Display="Display.Block">15-30 min</MudText>
                                             </MudItem>
                                             <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
-                                                <MudAvatar Style="height:30px; width:30px; font-size:1rem;">4.4</MudAvatar>
+                                                <!-- Updated MudAvatar with lighter background color -->
+                                                <MudAvatar Style="height:25px; width:25px; font-size:0.75rem;
+                                          background-color: rgba(0, 0, 0, 0.1);">4.4</MudAvatar>
                                             </MudItem>
                                         </MudGrid>
                                     </MudCardContent>
                                 </MudCard>
                             </MudLink>
-
-
-
                         </MudItem>
-
                         <!-- Second Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/Kfc.png" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>KFC</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
+                         <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden;">
+                                    <!-- Image container with cover styling and matching rounded corners -->
+                                    <MudCardMedia Image="images/kfc2.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
 
+                                    <!-- Favorite Icon positioned inside the image on the right side, reduced size, with transparent background -->
+                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Title="Favorite"
+                                                   Style="position: absolute; top: 8px; right: 8px; z-index: 10;
+                                  color: white; background-color: rgba(0, 0, 0, 0.3);
+                                  border-radius: 50%; font-size: 0.75rem; padding: 2px;"
+                                                   OnClick="YourFavoriteIconClickMethod" />
+
+                                    <!-- Content of the card -->
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">KFC</MudText>
+                                                <MudText Display="Display.Block">15-30 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <!-- Updated MudAvatar with lighter background color -->
+                                                <MudAvatar Style="height:25px; width:25px; font-size:0.75rem;
+                                          background-color: rgba(0, 0, 0, 0.1);">4.4</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
+                        </MudItem>
                         <!-- Third Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/Pizza.png" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>Pizza</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
+                           <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden;">
+                                    <!-- Image container with cover styling and matching rounded corners -->
+                                    <MudCardMedia Image="images/street.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
 
-                        <!-- Fourth Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/street.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>Street</MudText>
-                                </MudCardContent>
-                            </MudCard>
+                                    <!-- Favorite Icon positioned inside the image on the right side, reduced size, with transparent background -->
+                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Title="Favorite"
+                                                   Style="position: absolute; top: 8px; right: 8px; z-index: 10;
+                                  color: white; background-color: rgba(0, 0, 0, 0.3);
+                                  border-radius: 50%; font-size: 0.75rem; padding: 2px;"
+                                                   OnClick="YourFavoriteIconClickMethod" />
+
+                                    <!-- Content of the card -->
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">Pizza Hut</MudText>
+                                                <MudText Display="Display.Block">10-25 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <!-- Updated MudAvatar with lighter background color -->
+                                                <MudAvatar Style="height:25px; width:25px; font-size:0.75rem;
+                                          background-color: rgba(0, 0, 0, 0.1);">4.8</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
                         </MudItem>
+ 
+                        <!-- Fourth Card Item with rectangular image -->
+
+                        <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden;">
+                                    <!-- Image container with cover styling and matching rounded corners -->
+                                    <MudCardMedia Image="images/Pizza.png" Style="width: 100%; height: 150px; object-fit: cover;" />
+
+                                    <!-- Favorite Icon positioned inside the image on the right side, reduced size, with transparent background -->
+                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Title="Favorite"
+                                                   Style="position: absolute; top: 8px; right: 8px; z-index: 10;
+                                  color: white; background-color: rgba(0, 0, 0, 0.3);
+                                  border-radius: 50%; font-size: 0.75rem; padding: 2px;"
+                                                   OnClick="YourFavoriteIconClickMethod" />
+
+                                    <!-- Content of the card -->
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">Street Kitchen</MudText>
+                                                <MudText Display="Display.Block">10-25 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <!-- Updated MudAvatar with lighter background color -->
+                                                <MudAvatar Style="height:25px; width:25px; font-size:0.75rem;
+                                          background-color: rgba(0, 0, 0, 0.1);">4.8</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
+                        </MudItem>
+                         
                     </MudGrid>
                 </MudCarouselItem>
 
@@ -332,7 +443,249 @@
                                 </MudCard>
                             </MudLink>
 
+                        </MudItem>
 
+                        <!-- Second Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/cafe.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>KFC</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Third Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/Pizza.png" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Pizza</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Fourth Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudCard>
+                                <MudCardMedia Image="images/street.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                <MudCardContent>
+                                    <MudText>Street</MudText>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </MudCarouselItem>
+
+            </ChildContent>
+        </MudCarousel>
+    </MudItem>
+
+    <!-- Right space, adjust column count as needed -->
+    <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
+</MudGrid>
+
+
+<MudGrid AlignItems="Center">
+    <!-- Empty columns on the left for spacing -->
+    <MudItem xs="0" sm="2" md="1" lg="1"></MudItem>
+
+    <!-- Text content -->
+    <MudItem xs="8" sm="6" md="5" lg="3">
+        <MudNavLink Href="/your-target-page" Class="mud-typography custom-text">
+            Popular near you
+        </MudNavLink>
+    </MudItem>
+    <!-- Button and Carousel Controls Container -->
+    <MudItem xs="3" sm="3" md="4" lg="6" Style="display: flex; justify-content: flex-end; align-items: center;">
+        <MudButton Style="font-size: 0.9rem; font-family: 'Didact Gothic', sans-serif; font-weight: bold;">
+            See all
+        </MudButton>
+
+
+        <!-- Previous Button for Carousel -->
+        <div Style="margin-left: 8px;">
+            <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Dark" Size="Size.Small"
+                           OnClick="GoToPreviousSlide2" Style="margin-left: 8px;" />
+        </div>
+        <!-- Next Button for Carousel -->
+
+        <div Style="margin-left: 8px;">
+            <MudIconButton Icon="@Icons.Material.Filled.ArrowForward" Color="Color.Dark" Size="Size.Small"
+                           OnClick="GoToNextSlide2" Style="margin-left: 8px;" />
+
+        </div>
+    </MudItem>
+</MudGrid>
+
+@* 4 cards in single slide *@
+<MudGrid Justify="Justify.Center">
+    <!-- Left space, adjust column count as needed -->
+    <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
+
+    <!-- Carousel container -->
+    <MudItem xs="12" sm="10" md="8" lg="8">
+        <MudCarousel @ref="_carouselRef2" Class="mud-width-full" Style="height: 200px;" AutoCycle="false" TData="object" ShowBullets="false">
+            <BulletTemplate Context="selected">
+                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                    </span>
+                </div>
+            </BulletTemplate>
+            <ChildContent>
+                <MudCarouselItem>
+                    <MudGrid>
+                        <!-- First Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden;">
+                                    <!-- Image container with cover styling and matching rounded corners -->
+                                    <MudCardMedia Image="images/Burger.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
+
+                                    <!-- Favorite Icon positioned inside the image on the right side, reduced size, with transparent background -->
+                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Title="Favorite"
+                                                   Style="position: absolute; top: 8px; right: 8px; z-index: 10;
+                                  color: white; background-color: rgba(0, 0, 0, 0.3);
+                                  border-radius: 50%; font-size: 0.75rem; padding: 2px;"
+                                                   OnClick="YourFavoriteIconClickMethod" />
+
+                                    <!-- Content of the card -->
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">Burger Shop</MudText>
+                                                <MudText Display="Display.Block">15-30 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <!-- Updated MudAvatar with lighter background color -->
+                                                <MudAvatar Style="height:25px; width:25px; font-size:0.75rem;
+                                          background-color: rgba(0, 0, 0, 0.1);">4.4</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
+                        </MudItem>
+                        <!-- Second Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden;">
+                                    <!-- Image container with cover styling and matching rounded corners -->
+                                    <MudCardMedia Image="images/divemore.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
+
+                                    <!-- Favorite Icon positioned inside the image on the right side, reduced size, with transparent background -->
+                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Title="Favorite"
+                                                   Style="position: absolute; top: 8px; right: 8px; z-index: 10;
+                                  color: white; background-color: rgba(0, 0, 0, 0.3);
+                                  border-radius: 50%; font-size: 0.75rem; padding: 2px;"
+                                                   OnClick="YourFavoriteIconClickMethod" />
+
+                                    <!-- Content of the card -->
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">Divemore</MudText>
+                                                <MudText Display="Display.Block">15-30 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <!-- Updated MudAvatar with lighter background color -->
+                                                <MudAvatar Style="height:25px; width:25px; font-size:0.75rem;
+                                          background-color: rgba(0, 0, 0, 0.1);">4.4</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
+                        </MudItem>
+                        <!-- Third Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden;">
+                                    <!-- Image container with cover styling and matching rounded corners -->
+                                    <MudCardMedia Image="images/lavies.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
+
+                                    <!-- Favorite Icon positioned inside the image on the right side, reduced size, with transparent background -->
+                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Title="Favorite"
+                                                   Style="position: absolute; top: 8px; right: 8px; z-index: 10;
+                                  color: white; background-color: rgba(0, 0, 0, 0.3);
+                                  border-radius: 50%; font-size: 0.75rem; padding: 2px;"
+                                                   OnClick="YourFavoriteIconClickMethod" />
+
+                                    <!-- Content of the card -->
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">Pizza Hut</MudText>
+                                                <MudText Display="Display.Block">10-25 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <!-- Updated MudAvatar with lighter background color -->
+                                                <MudAvatar Style="height:25px; width:25px; font-size:0.75rem;
+                                          background-color: rgba(0, 0, 0, 0.1);">4.8</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
+                        </MudItem>
+
+                        <!-- Fourth Card Item with rectangular image -->
+
+                        <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden;">
+                                    <!-- Image container with cover styling and matching rounded corners -->
+                                    <MudCardMedia Image="images/Ar.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
+
+                                    <!-- Favorite Icon positioned inside the image on the right side, reduced size, with transparent background -->
+                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Title="Favorite"
+                                                   Style="position: absolute; top: 8px; right: 8px; z-index: 10;
+                                  color: white; background-color: rgba(0, 0, 0, 0.3);
+                                  border-radius: 50%; font-size: 0.75rem; padding: 2px;"
+                                                   OnClick="YourFavoriteIconClickMethod" />
+
+                                    <!-- Content of the card -->
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">Street Kitchen</MudText>
+                                                <MudText Display="Display.Block">10-25 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <!-- Updated MudAvatar with lighter background color -->
+                                                <MudAvatar Style="height:25px; width:25px; font-size:0.75rem;
+                                          background-color: rgba(0, 0, 0, 0.1);">4.8</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
+                        </MudItem>
+
+                    </MudGrid>
+                </MudCarouselItem>
+
+                <MudCarouselItem>
+                    <MudGrid>
+                        <!-- First Card Item with rectangular image -->
+                        <MudItem xs="3">
+                            <MudLink Href="your-link-here" Style="text-decoration: none;">
+                                <MudCard Style="cursor: pointer;">
+                                    <MudCardMedia Image="images/Burger.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
+                                    <MudCardContent Style="padding: 8px;">
+                                        <MudGrid AlignItems="Center">
+                                            <MudItem xs="9">
+                                                <MudText Class="bold-text">Grand</MudText>
+                                                <MudText Display="Display.Block">15-30 min</MudText>
+                                            </MudItem>
+                                            <MudItem xs="3" Style="display: flex; justify-content: flex-end;">
+                                                <MudAvatar Style="height:30px; width:30px; font-size:1rem;">4.4</MudAvatar>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudLink>
 
                         </MudItem>
 
@@ -375,150 +728,6 @@
     <!-- Right space, adjust column count as needed -->
     <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
 </MudGrid>
- 
-
-<MudGrid>
-
-    <!-- Empty columns on the left for spacing -->
-    <MudItem xs="0" sm="2" md="1" lg="1"></MudItem>
-
-    <!-- Text content, taking up remaining space -->
-    <MudItem xs="12" sm="8" md="6" lg="4">
-        <MudNavLink Href="/your-target-page" Class="mud-typography custom-text">
-            Popular near you
-        </MudNavLink>
-    </MudItem>
-</MudGrid>
-
- 
-
-<MudGrid Justify="Justify.Center">
-    <!-- Left space, adjust column count as needed -->
-    <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
-
-    <!-- Carousel container -->
-    <MudItem xs="12" sm="10" md="8" lg="8">
-        <MudCarousel Class="mud-width-full" Style="height: 200px;" AutoCycle="false" TData="object" ShowBullets="false">
-            <BulletTemplate Context="selected">
-                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                    <span class="mud-icon-button-label">
-                        <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
-                    </span>
-                </div>
-            </BulletTemplate>
-
-            <PreviousButtonTemplate>
-                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                    <span class="mud-icon-button-label">
-                        <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Inherit" />
-                    </span>
-                </div>
-            </PreviousButtonTemplate>
-
-            <NextButtonTemplate>
-                <div class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                    <span class="mud-icon-button-label">
-                        <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Inherit" />
-                    </span>
-                </div>
-            </NextButtonTemplate>
-
-            <ChildContent>
-                <MudCarouselItem>
-                    <MudGrid>
-                        <!-- First Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/fruits.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>Grand</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
-
-                        <!-- Second Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/fire.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>KFC</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
-
-                        <!-- Third Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/cafe.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>Pizza</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
-
-                        <!-- Fourth Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/sweden.png" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>Street</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
-                    </MudGrid>
-                </MudCarouselItem>
-
-                  <MudCarouselItem>
-                    <MudGrid>
-                        <!-- First Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/fruits.jpeg" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>Grand</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
-
-                        <!-- Second Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/fire.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>KFC</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
-
-                        <!-- Third Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/cafe.jpg" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>Pizza</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
-
-                        <!-- Fourth Card Item with rectangular image -->
-                        <MudItem xs="3">
-                            <MudCard>
-                                <MudCardMedia Image="images/sweden.png" Style="width: 100%; height: 150px; object-fit: cover;" />
-                                <MudCardContent>
-                                    <MudText>Street</MudText>
-                                </MudCardContent>
-                            </MudCard>
-                        </MudItem>
-                    </MudGrid>
-                </MudCarouselItem>
-            </ChildContent>
-        </MudCarousel>
-    </MudItem>
-
-    <!-- Right space, adjust column count as needed -->
-    <MudItem xs="0" sm="1" md="2" lg="2"></MudItem>
-</MudGrid>
-
 
  
  
@@ -709,6 +918,10 @@
 
 <br />
 
+@* JS File For Promo Card Slide Show *@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+
 
 @code {
 
@@ -755,16 +968,39 @@
 
 
     private MudCarousel<object> _carouselRef;
+    private MudCarousel<object> _carouselRef2;
 
     private void GoToNextSlide()
     {
         _carouselRef.Next();
+         
+    }
+
+    private void GoToNextSlide2()
+    {
+         
+        _carouselRef2.Next();
     }
 
     private void GoToPreviousSlide()
     {
         _carouselRef.Previous();
+        
     }
+
+    private void GoToPreviousSlide2()
+    {
+        
+        _carouselRef2.Previous();
+    }
+
+
+    private void YourFavoriteIconClickMethod()
+    {
+        // Logic for when the favorite icon is clicked
+        Console.WriteLine("Favorite icon clicked!");
+    }
+
 }
 
 
