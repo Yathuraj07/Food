@@ -1,4 +1,4 @@
-﻿ @inherits LayoutComponentBase
+﻿  @inherits LayoutComponentBase
  @using System.Threading
 
 @* Required *@
@@ -39,50 +39,123 @@
         }
 
 
-        
+
         .custom-autocomplete {
             min-width: 300px; /* Adjust as necessary */
             height: 56px; /* Set a desired height */
         }
-    
 
+
+        /* ///////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+        /* Applying the Font to the entire Page */
+        body {
+            font-family: "Didact Gothic", sans-serif;
+        }
+
+        /* Bootstrap Button Customization */
+        .btn {
+            border-radius: 2em;
+            margin-right: 1em;
+            padding-right: 1em;
+            padding-left: 1em;
+        }
+
+        .btn-primary {
+            border: none;
+            background-color: black;
+            border: 3px solid black;
+        }
+
+            .btn-primary:hover {
+                background-color: dimgray;
+            }
+
+        /* Custom style for MudBlazor Components */
+        .custom-mudtextfield .mud-input {
+            --mud-palette-primary: #000000;
+        }
+
+        .custom-mudtextfield {
+            --mud-palette-primary: #000000;
+        }
+
+        .custom-mudtextfield {
+            --mud-default-borderradius: 2em;
+        }
+
+        .mud-toolbar-appbar {
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+        }
+
+        .MudCartIcon {
+            background-color: lightyellow;
+        }
+
+        /* ///////////////////////////////////////////////////////////////////////////////////////////////////////// */
     </style>
 </head>
 
-<MudLayout Style="background-color: white;">
-    <MudAppBar Elevation="1" Color="Color.Default" Class="solid-background">
+<MudLayout Style="background-color: transparent;">
+    <MudAppBar Elevation="0" Color="Color.Default" Class="solid-background">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Default" Edge="Edge.Start" OnClick="@ToggleDrawer" Class="bold-icon" />
-        <MudText Typo="Typo.h6" Class="bold-text" Style="white-space: nowrap;">Food Store</MudText>
+
+        @* Store Logo & Title *@
+        <span class="navbar-brand text-white fw-bold fs-2 didact-gothic-regular" href="#">
+            <img src="https://icones.pro/wp-content/uploads/2021/04/icone-de-nourriture-jaune-symbole-png.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+            <span class="text-warning">Food </span><span class="text-black">Store &nbsp;</span>
+        </span>
 
         <MudSpacer />
 
+        @* Search Bar *@
         <div class="centered-search">
             <MudGrid>
                 <MudItem xs="12" sm="10" md="8">
-                    <MudAutocomplete T="string" Label="Search Foods" @bind-Value="value2" SearchFunc="@Search2"
-                                     ResetValueOnEmptyText="@resetValueOnEmptyText"
+                    <MudAutocomplete T="string" Label="Search Food or Restaurants" @bind-Value="value2" SearchFunc="@Search2"
+                                     ResetValueOnEmptyText="@resetValueOnEmptyText" Variant="Variant.Outlined"
                                      CoerceText="@coerceText" CoerceValue="@coerceValue"
                                      AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary"
-                                     Class="custom-autocomplete"
-                                     Style="font-size: 1.5rem; height: 3rem; width: 100%;" />
+                                     Class="custom-autocomplete custom-mudtextfield"
+                                     />
                 </MudItem>
             </MudGrid>
         </div>
 
         <MudSpacer />
 
-        <div style="display: flex; align-items: center;">
-            <MudButton Variant="Variant.Outlined" Class="bold-text" Style="margin-right: 8px;">Login</MudButton>
-            <MudButton Variant="Variant.Outlined" Class="bold-text">Signup</MudButton>
-        </div>
+        @* Login and Signup Buttons *@
+        <button type="button" class="btn btn-primary fs-5" id="LoginButton">Log&nbsp;in</button>
+        <MudSpacer />
+        <button type="button" class="btn btn-outline-secondary fs-5" id="SignUpButton">Sign&nbsp;up</button>
 
+        <MudSpacer />
 
-        
+        @* Cart Button *@
+        <MudBadge Content="4" Color="Color.Warning" Overlap="true" Class="mx-6 my-4">
+            <MudIconButton Class="text-black MudCartIcon" Icon="@Icons.Material.Filled.ShoppingCart" OnClick="@(() => OpenDrawer(Anchor.End))"></MudIconButton>
+        </MudBadge>
 
-        <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Class="bold-text" />
+        @* This Drawer will open after clicking the Cart button. *@
+        <MudDrawer @bind-Open="@_openCart" Anchor="@_anchor" Elevation="1" Variant="@DrawerVariant.Temporary" OverlayAutoClose="@_overlayAutoClose">
+            <img src="https://thumbs.dreamstime.com/b/shopping-trolley-full-food-shopping-trolley-full-food-flat-vector-illustration-112979674.jpg" />
+        </MudDrawer>
+
+        @* Codes for Drawer *@
+        @code {
+        private bool _openCart;
+        private Anchor _anchor;
+        private bool _overlayAutoClose = true;
+
+        private void OpenDrawer(Anchor anchor)
+        {
+            _openCart = true;
+            _anchor = anchor;
+        }
+        }
+
     </MudAppBar>
-
-
 
     <MudDrawer @bind-Open="@_open" Elevation="1" Style="background-color: white;">
         <MudDrawerHeader>
@@ -99,47 +172,6 @@
         @Body
     </MudMainContent>
 </MudLayout>
-
-
-
-@*  <MudLayout Class="solid-background">
-    <MudAppBar Elevation="1" Color="Color.Default" Class="solid-background">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" Class="bold-icon" />
-        <MudText Typo="Typo.h6" Class="bold-text">Food Store</MudText>
-
-        <MudGrid>
-            <MudItem xs="12" sm="6" md="4">
-                <MudAutocomplete T="string" Label="US States" @bind-Value="value2" SearchFunc="@Search2"
-                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
-                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
-                                 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
-            </MudItem>
-        </MudGrid>
-
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" />
-        <MudButton Variant="Variant.Outlined" Color="Color.Inherit">Log in</MudButton>
-        <MudButton Variant="Variant.Filled" Color="Color.Secondary">Sign up</MudButton>
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href="https://github.com/MudBlazor/MudBlazor" Target="_blank" />
-    </MudAppBar>
-
-    <MudDrawer @bind-Open="@_open" Elevation="1" Class="solid-background">
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h6" FontWeight="FontWeight.Bold">My App</MudText>
-        </MudDrawerHeader>
-        <MudNavMenu>
-            <MudNavLink Match="NavLinkMatch.All" Class="bold-link">Store</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All" Class="bold-link">Library</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All" Class="bold-link">Community</MudNavLink>
-        </MudNavMenu>
-    </MudDrawer>
-
-    <MudMainContent Class="solid-background">
-        @Body
-    </MudMainContent>
-</MudLayout> *@
-
 
 
 @code {
